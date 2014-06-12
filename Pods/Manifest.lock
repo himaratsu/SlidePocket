@@ -1,0 +1,36 @@
+PODS:
+  - AFNetworking (2.3.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.3.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.3.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.3.0)
+  - AFNetworking/Security (2.3.0)
+  - AFNetworking/Serialization (2.3.0)
+  - AFNetworking/UIKit (2.3.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - KissXML (5.0)
+  - SVProgressHUD (1.0)
+
+DEPENDENCIES:
+  - AFNetworking
+  - KissXML
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  AFNetworking: e7abefee64543aa978c9d759bc8892402b1ed7d1
+  KissXML: e537c38b18ede903ee6de45953a9bd86c131ebe9
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+
+COCOAPODS: 0.33.1
