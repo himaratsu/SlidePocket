@@ -11,22 +11,11 @@
 		D97870CA1949B8C900023D51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97870C91949B8C900023D51 /* ViewController.swift */; };
 		D97870CD1949B8C900023D51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D97870CB1949B8C900023D51 /* Main.storyboard */; };
 		D97870CF1949B8C900023D51 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97870CE1949B8C900023D51 /* Images.xcassets */; };
-		D97870DB1949B8C900023D51 /* SlidePocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97870DA1949B8C900023D51 /* SlidePocketTests.swift */; };
 		D97870E61949B94100023D51 /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97870E51949B94100023D51 /* Slide.swift */; };
 		D97870E81949B9A000023D51 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97870E71949B9A000023D51 /* Language.swift */; };
-		D9AD1D3B1949C08800623F35 /* HashString.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AD1D3A1949C08800623F35 /* HashString.m */; };
+		D9E8A7071949F92500F174E1 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D9E8A7061949F92500F174E1 /* Util.m */; };
 		E1AB008CFE64403F91E3B36F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D6580387714252AC5629A8 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		D97870D51949B8C900023D51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D97870BA1949B8C900023D51 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D97870C11949B8C900023D51;
-			remoteInfo = SlidePocket;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		87D6580387714252AC5629A8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,14 +25,11 @@
 		D97870C91949B8C900023D51 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D97870CC1949B8C900023D51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D97870CE1949B8C900023D51 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D97870D41949B8C900023D51 /* SlidePocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlidePocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D97870D91949B8C900023D51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D97870DA1949B8C900023D51 /* SlidePocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePocketTests.swift; sourceTree = "<group>"; };
 		D97870E51949B94100023D51 /* Slide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Slide.swift; path = Model/Slide.swift; sourceTree = "<group>"; };
 		D97870E71949B9A000023D51 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Language.swift; path = Model/Language.swift; sourceTree = "<group>"; };
 		D97870EA1949BD6800023D51 /* SlidePocket-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SlidePocket-Bridging-Header.h"; sourceTree = "<group>"; };
-		D9AD1D3A1949C08800623F35 /* HashString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashString.m; sourceTree = "<group>"; };
-		D9AD1D3C1949C1A300623F35 /* HashString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HashString.h; sourceTree = "<group>"; };
+		D9E8A7051949F92500F174E1 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		D9E8A7061949F92500F174E1 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		FB129CC28FEF42EC9B1FC5F7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,13 +39,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1AB008CFE64403F91E3B36F /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D97870D11949B8C900023D51 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,10 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				D97870EA1949BD6800023D51 /* SlidePocket-Bridging-Header.h */,
-				D9AD1D3C1949C1A300623F35 /* HashString.h */,
-				D9AD1D3A1949C08800623F35 /* HashString.m */,
+				D9E8A7051949F92500F174E1 /* Util.h */,
+				D9E8A7061949F92500F174E1 /* Util.m */,
 				D97870C41949B8C900023D51 /* SlidePocket */,
-				D97870D71949B8C900023D51 /* SlidePocketTests */,
 				D97870C31949B8C900023D51 /* Products */,
 				FB129CC28FEF42EC9B1FC5F7 /* Pods.xcconfig */,
 				1D8D5DC3321D4F8A98E9D607 /* Frameworks */,
@@ -92,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				D97870C21949B8C900023D51 /* SlidePocket.app */,
-				D97870D41949B8C900023D51 /* SlidePocketTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,23 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				D97870C61949B8C900023D51 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D97870D71949B8C900023D51 /* SlidePocketTests */ = {
-			isa = PBXGroup;
-			children = (
-				D97870DA1949B8C900023D51 /* SlidePocketTests.swift */,
-				D97870D81949B8C900023D51 /* Supporting Files */,
-			);
-			path = SlidePocketTests;
-			sourceTree = "<group>";
-		};
-		D97870D81949B8C900023D51 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D97870D91949B8C900023D51 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -166,24 +126,6 @@
 			productReference = D97870C21949B8C900023D51 /* SlidePocket.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D97870D31949B8C900023D51 /* SlidePocketTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D97870E11949B8C900023D51 /* Build configuration list for PBXNativeTarget "SlidePocketTests" */;
-			buildPhases = (
-				D97870D01949B8C900023D51 /* Sources */,
-				D97870D11949B8C900023D51 /* Frameworks */,
-				D97870D21949B8C900023D51 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D97870D61949B8C900023D51 /* PBXTargetDependency */,
-			);
-			name = SlidePocketTests;
-			productName = SlidePocketTests;
-			productReference = D97870D41949B8C900023D51 /* SlidePocketTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,10 +137,6 @@
 				TargetAttributes = {
 					D97870C11949B8C900023D51 = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					D97870D31949B8C900023D51 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = D97870C11949B8C900023D51;
 					};
 				};
 			};
@@ -216,7 +154,6 @@
 			projectRoot = "";
 			targets = (
 				D97870C11949B8C900023D51 /* SlidePocket */,
-				D97870D31949B8C900023D51 /* SlidePocketTests */,
 			);
 		};
 /* End PBXProject section */
@@ -228,13 +165,6 @@
 			files = (
 				D97870CD1949B8C900023D51 /* Main.storyboard in Resources */,
 				D97870CF1949B8C900023D51 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D97870D21949B8C900023D51 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,30 +209,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D97870E61949B94100023D51 /* Slide.swift in Sources */,
-				D9AD1D3B1949C08800623F35 /* HashString.m in Sources */,
 				D97870E81949B9A000023D51 /* Language.swift in Sources */,
 				D97870CA1949B8C900023D51 /* ViewController.swift in Sources */,
 				D97870C81949B8C900023D51 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D97870D01949B8C900023D51 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D97870DB1949B8C900023D51 /* SlidePocketTests.swift in Sources */,
+				D9E8A7071949F92500F174E1 /* Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D97870D61949B8C900023D51 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D97870C11949B8C900023D51 /* SlidePocket */;
-			targetProxy = D97870D51949B8C900023D51 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D97870CB1949B8C900023D51 /* Main.storyboard */ = {
@@ -350,7 +264,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -386,7 +300,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -401,6 +315,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SlidePocket/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SlidePocket-Bridging-Header.h";
@@ -416,45 +331,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SlidePocket/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SlidePocket-Bridging-Header.h";
-			};
-			name = Release;
-		};
-		D97870E21949B8C900023D51 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SlidePocket.app/SlidePocket";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SlidePocketTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Debug;
-		};
-		D97870E31949B8C900023D51 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SlidePocket.app/SlidePocket";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SlidePocketTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
@@ -475,15 +355,6 @@
 			buildConfigurations = (
 				D97870DF1949B8C900023D51 /* Debug */,
 				D97870E01949B8C900023D51 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D97870E11949B8C900023D51 /* Build configuration list for PBXNativeTarget "SlidePocketTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D97870E21949B8C900023D51 /* Debug */,
-				D97870E31949B8C900023D51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

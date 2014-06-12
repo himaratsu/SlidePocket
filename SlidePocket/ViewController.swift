@@ -21,20 +21,19 @@ class ViewController: UIViewController {
 
 
     func reload() -> Void {
-        var timestamp = HashString().unixtime()
+        var timestamp = Util().unixtime()
         println("unix timestamp is \(timestamp)")
         
         var appendStr = "\(kApiSecret)\(timestamp)"
         var hash:String = self.hashStr(appendStr)
         println("\(appendStr) -> \(hash)")
         
-        self.getFlickrPhotos(String(timestamp), hash:hash)
+        self.getSlidesWitgTag(String(timestamp), hash:hash)
         
     }
     
-    
-    // www.slideshare.net/api/2/get_slideshows_by_tag?tag=slideshare&limit=10&api_key=u25khrDY&hash=a13a321ae14859be107cb2363f4f4bb3c7904fb6&ts=1402570711
-    func getFlickrPhotos(ts:String, hash:String) -> Void {
+
+    func getSlidesWitgTag(ts:String, hash:String) -> Void {
         let manager :AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFHTTPResponseSerializer();
         
@@ -73,7 +72,7 @@ class ViewController: UIViewController {
     }
     
     func hashStr(str:String) -> String {
-        return HashString().sha1(str)
+        return Util().sha1(str)
     }
     
     @IBAction func reloadBtnTouched(sender : AnyObject) {

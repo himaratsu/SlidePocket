@@ -4,5 +4,5 @@
 
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
-#import "HashString.h"
+#import "Util.h"
 #import "DDXML.h"
