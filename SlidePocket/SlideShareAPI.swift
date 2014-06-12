@@ -14,16 +14,18 @@ class SlideShareAPI {
     
     func generateUnixtimeAndHash() -> (ts:String, hash:String) {
         var timestamp = Util().unixtime()
-        println("unix timestamp is \(timestamp)")
         
         var appendStr = "\(kApiSecret)\(timestamp)"
-        var hash:String = self.hashStr(appendStr)
-        println("\(appendStr) -> \(hash)")
+        var hash:String = Util().sha1(appendStr)
         
         return (String(timestamp), hash)
     }
     
-    func getSlidesWitgTag(tag:String) -> Void {
+    func getSlidesWitgTag(tag:String,
+                      success:((AFHTTPRequestOperation!, AnyObject!) -> Void)!,
+                      failure:((AFHTTPRequestOperation!, NSError!) -> Void)!)
+        -> Void
+    {
         let manager :AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFHTTPResponseSerializer();
         
@@ -40,34 +42,7 @@ class SlideShareAPI {
         
         println(parameters)
         
-        manager.GET(url, parameters: parameters, success: requestSuccess, failure: requestFailure)
-    }
-    
-    func requestSuccess (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void {
-        SVProgressHUD.dismiss()
-        
-        // xmldata
-        if (responseObject) {
-            var xml:NSData = responseObject as NSData
-            var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
-            
-            var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
-            for node: DDXMLNode! in nodes {
-                println("slide title is '\(node.stringValue())'")
-            }
-        }
-    }
-    
-    func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
-        SVProgressHUD.dismiss()
-        println("requestFailure \(error)")
-    }
-    
-    
-    // -------------
-    
-    func hashStr(str:String) -> String {
-        return Util().sha1(str)
+        manager.GET(url, parameters: parameters, success: success, failure: failure)
     }
     
 }
