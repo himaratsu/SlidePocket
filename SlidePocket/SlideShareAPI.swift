@@ -12,8 +12,8 @@ class SlideShareAPI {
     let kApiKey:String = "u25khrDY"
     let kApiSecret:String = "kJFifre0"
     
-    var completion = ({(result: AnyObject!, error: NSError?) -> Void in println("Hello")})
-    var myCompletion :AnyObject? = nil
+//    var completion = ({(result: AnyObject!, error: NSError?) -> Void in println("Hello")})
+//    var myCompletion :AnyObject? = nil
     
     func generateUnixtimeAndHash() -> (ts:String, hash:String) {
         var timestamp = Util().unixtime()
@@ -42,32 +42,38 @@ class SlideShareAPI {
         
         println(parameters)
         
-        
-        // callback ----
-        let successCallback = {
-            (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void in
+        manager.GET(url, parameters: parameters, success: self.requestSuccess(completion), failure: self.requestFailure)
+    }
+    
+    func requestSuccess(completion:(NSDictionary?, NSError?) -> Void!) -> ((AFHTTPRequestOperation!, AnyObject!) -> Void) {
+        return {
+            (operation, response) in
             
-            var titles: Array<String> = []
-            
-            // xmldata
-            if (responseObject) {
-                var xml:NSData = responseObject as NSData
-                var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
-                
-                var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
-                for node: DDXMLNode! in nodes {
-                    titles += node.stringValue()
-                }
-            }
-            
-            let result :Dictionary = ["slide_titles":titles]
-            completion(result, nil)
+            println("response is \(response)")
+            self.parse(response)
+//            var result:Dictionary = self.parseResponse(response)
+//            completion(response as? NSDictionary, nil)
+            return;
         }
-        
-        manager.GET(url, parameters: parameters, success: successCallback, failure: self.requestFailure)
     }
 
-    
+    func parse(responseObject: AnyObject!) -> Dictionary<String, Array<String>> {
+        var titles: Array<String> = []
+        
+        var xml:NSData = responseObject as NSData
+        var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+        
+        var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
+        for node: DDXMLNode! in nodes {
+            titles += node.stringValue()
+        }
+        
+        println("titles = \(titles)")
+        let result :Dictionary = ["slide_titles" : titles]
+        
+        return result
+    }
+
     func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
         SVProgressHUD.dismiss()
         println("requestFailure \(error)")
