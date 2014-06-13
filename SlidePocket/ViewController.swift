@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     }
     
     func completion(result: AnyObject?, error: NSError?) -> Void {
-//        println("complete")
+        println("result int ViewController!: \(result)")
     }
     
 //    func requestSuccess (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void {
