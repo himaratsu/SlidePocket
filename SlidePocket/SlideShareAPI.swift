@@ -49,15 +49,14 @@ class SlideShareAPI {
         return {
             (operation, response) in
             
-            println("response is \(response)")
-            self.parse(response)
-//            var result:Dictionary = self.parseResponse(response)
-//            completion(response as? NSDictionary, nil)
+            var result = self.parse(response)
+            completion(result, nil)
+
             return;
         }
     }
 
-    func parse(responseObject: AnyObject!) -> Dictionary<String, Array<String>> {
+    func parse(responseObject: AnyObject!) -> NSDictionary {
         var titles: Array<String> = []
         
         var xml:NSData = responseObject as NSData
@@ -68,8 +67,7 @@ class SlideShareAPI {
             titles += node.stringValue()
         }
         
-        println("titles = \(titles)")
-        let result :Dictionary = ["slide_titles" : titles]
+        let result :NSDictionary = ["slide_titles" : titles]
         
         return result
     }
