@@ -27,7 +27,11 @@ class ViewController: UIViewController {
     }
     
     // api通信のresponse
-    func completion(result: AnyObject?, error: NSError?) -> Void {
+    func completion(response: NSHTTPURLResponse? ,result: AnyObject?, error: NSError?) -> Void {
+        println("completion ==============================================================================")
+        
+        println("requestPath is [\(response!.URL.path)]")
+        
         // エラーハンドリング
         if let e = error {
             var alert:UIAlertView = UIAlertView()
@@ -38,7 +42,7 @@ class ViewController: UIViewController {
             
             return
         }
-        println("result int ViewController!: \(result)")
+        println("result is [\(result)]")
     }
     
     @IBAction func reloadBtnTouched(sender : AnyObject) {
