@@ -26,31 +26,21 @@ class ViewController: UIViewController {
         api.getSlidesWitgTag("swift", self.completion)
     }
     
+    // api通信のresponse
     func completion(result: AnyObject?, error: NSError?) -> Void {
+        // エラーハンドリング
+        if let e = error {
+            var alert:UIAlertView = UIAlertView()
+            alert.title = "エラー"
+            alert.message = e.localizedDescription
+            alert.addButtonWithTitle("OK")
+            alert.show()
+            
+            return
+        }
         println("result int ViewController!: \(result)")
     }
     
-//    func requestSuccess (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void {
-//        SVProgressHUD.dismiss()
-//        
-//        // xmldata
-//        if (responseObject) {
-//            var xml:NSData = responseObject as NSData
-//            var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
-//            
-//            var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
-//            for node: DDXMLNode! in nodes {
-//                println("slide title is '\(node.stringValue())'")
-//            }
-//        }
-//    }
-//    
-//    func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
-//        SVProgressHUD.dismiss()
-//        println("requestFailure \(error)")
-//    }
-
-
     @IBAction func reloadBtnTouched(sender : AnyObject) {
         reload()
     }

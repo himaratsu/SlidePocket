@@ -34,29 +34,40 @@ class SlideShareAPI {
         let url :String = "https://www.slideshare.net/api/2/get_slideshows_by_tag"
         let parameters :Dictionary = [
             "tag"         : tag,
-            "api_key"     : kApiKey,
-            "ts"          : subParams.0,
+//            "api_key"     : kApiKey,
+//            "ts"          : subParams.0,
             "hash"        : subParams.1,
             "limit"       : "10"
         ]
         
         println(parameters)
         
-        manager.GET(url, parameters: parameters, success: self.requestSuccess(completion), failure: self.requestFailure)
+        manager.GET(url,
+                    parameters: parameters,
+                    success: self.requestSuccess(completion),
+                    failure: self.requestFailure(completion))
     }
     
     func requestSuccess(completion:(NSDictionary?, NSError?) -> Void!) -> ((AFHTTPRequestOperation!, AnyObject!) -> Void) {
         return {
             (operation, response) in
             
-            var result = self.parse(response)
+            var result = self.parseResponse(response)
             completion(result, nil)
 
-            return;
+            return
+        }
+    }
+    
+    func requestFailure(completion:(NSDictionary?, NSError?) -> Void!) -> ((AFHTTPRequestOperation!, NSError!) -> Void) {
+        return {
+            (operation, error) in
+            completion(nil, error)
+            return
         }
     }
 
-    func parse(responseObject: AnyObject!) -> NSDictionary {
+    func parseResponse(responseObject: AnyObject!) -> NSDictionary {
         var titles: Array<String> = []
         
         var xml:NSData = responseObject as NSData
@@ -71,12 +82,5 @@ class SlideShareAPI {
         
         return result
     }
-
-    func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
-        SVProgressHUD.dismiss()
-        println("requestFailure \(error)")
-    }
-
-
 
 }
