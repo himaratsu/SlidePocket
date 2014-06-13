@@ -23,28 +23,32 @@ class ViewController: UIViewController {
     func reload() -> Void {
         SVProgressHUD.show()
         var api: SlideShareAPI = SlideShareAPI()
-        api.getSlidesWitgTag("ios", self.requestSuccess, requestFailure)
+        api.getSlidesWitgTag("swift", self.completion)
     }
     
-    func requestSuccess (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void {
-        SVProgressHUD.dismiss()
-        
-        // xmldata
-        if (responseObject) {
-            var xml:NSData = responseObject as NSData
-            var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
-            
-            var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
-            for node: DDXMLNode! in nodes {
-                println("slide title is '\(node.stringValue())'")
-            }
-        }
+    func completion(result: AnyObject?, error: NSError?) -> Void {
+//        println("complete")
     }
     
-    func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
-        SVProgressHUD.dismiss()
-        println("requestFailure \(error)")
-    }
+//    func requestSuccess (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void {
+//        SVProgressHUD.dismiss()
+//        
+//        // xmldata
+//        if (responseObject) {
+//            var xml:NSData = responseObject as NSData
+//            var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+//            
+//            var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
+//            for node: DDXMLNode! in nodes {
+//                println("slide title is '\(node.stringValue())'")
+//            }
+//        }
+//    }
+//    
+//    func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
+//        SVProgressHUD.dismiss()
+//        println("requestFailure \(error)")
+//    }
 
 
     @IBAction func reloadBtnTouched(sender : AnyObject) {

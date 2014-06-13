@@ -12,6 +12,12 @@ class SlideShareAPI {
     let kApiKey:String = "u25khrDY"
     let kApiSecret:String = "kJFifre0"
     
+    func completion(result: AnyObject!, error: NSError?) -> Void {
+        println("complete")
+        
+        println("result is \(result)")
+    }
+    
     func generateUnixtimeAndHash() -> (ts:String, hash:String) {
         var timestamp = Util().unixtime()
         
@@ -22,8 +28,7 @@ class SlideShareAPI {
     }
     
     func getSlidesWitgTag(tag:String,
-                      success:((AFHTTPRequestOperation!, AnyObject!) -> Void)!,
-                      failure:((AFHTTPRequestOperation!, NSError!) -> Void)!)
+                      completion:((NSDictionary?, NSError?) -> Void)!)
         -> Void
     {
         let manager :AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
@@ -42,7 +47,37 @@ class SlideShareAPI {
         
         println(parameters)
         
-        manager.GET(url, parameters: parameters, success: success, failure: failure)
+        
+        manager.GET(url, parameters: parameters, success: self.requestSuccess, failure: self.requestFailure)
     }
     
+    
+    func requestSuccess (operation :AFHTTPRequestOperation!, responseObject :AnyObject!) -> Void {
+        SVProgressHUD.dismiss()
+        
+        var titles: Array<String> = []
+        
+        // xmldata
+        if (responseObject) {
+            var xml:NSData = responseObject as NSData
+            var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+            
+            var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
+            for node: DDXMLNode! in nodes {
+                titles += node.stringValue()
+            }
+        }
+        
+        let result :Dictionary = ["slide_titles":titles]
+        self.completion(result, error: nil)
+        
+    }
+    
+    func requestFailure (operation :AFHTTPRequestOperation!, error :NSError!) -> Void {
+        SVProgressHUD.dismiss()
+        println("requestFailure \(error)")
+    }
+
+
+
 }
