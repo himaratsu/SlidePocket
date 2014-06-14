@@ -27,7 +27,8 @@ class SlideShareAPI {
     // APIにアクセスする
     func getApiAccessWithPath(path:String,
                             params:NSMutableDictionary,
-                            completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+                            completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!,
+                            parser:(AnyObject!) -> NSDictionary) -> Void
     {
         let manager :AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
         manager.responseSerializer = AFHTTPResponseSerializer();
@@ -41,9 +42,10 @@ class SlideShareAPI {
         
         println(params)
         
+        // TODO: アクセスするAPIに応じてparserの種類を変更する
         manager.GET(url,
             parameters: params,
-            success: self.requestSuccess(completion),
+            success: self.requestSuccess(completion, parser),
             failure: self.requestFailure(completion))
     }
     
@@ -54,20 +56,23 @@ class SlideShareAPI {
 
         let params :NSMutableDictionary = [
             "tag"         : tag,
+            "detailed"    : "1",
             "limit"       : "10"
         ]
         
-        self.getApiAccessWithPath("get_slideshows_by_tag", params: params, completion: completion)
+        // TODO: 処理によって渡すparserは変更する
+        self.getApiAccessWithPath("get_slideshows_by_tag", params: params, completion: completion, parser:self.parseResponse)
     }
     
     // 通信成功時の処理
-    func requestSuccess(completion:(NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void!) -> ((AFHTTPRequestOperation!, AnyObject!) -> Void) {
+    func requestSuccess(completion:(NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void!,
+                            parser:(AnyObject!) -> NSDictionary)
+                        -> ((AFHTTPRequestOperation!, AnyObject!) -> Void) {
         return {
             (operation, responseObject) in
             
-            // TODO: アクセスするAPIに応じてparserの種類を変更する
             // TODO: 通信成功したけどエラー（tokenエラーとか）に対応する
-            var result = self.parseResponse(responseObject)
+            var result = parser(responseObject)
             completion(operation.response, result, nil)
 
             return
@@ -85,17 +90,18 @@ class SlideShareAPI {
     
     // /api/2/get_slideshows_by_tag のレスポンスをparseしてスライドタイトルを取り出す
     func parseResponse(responseObject: AnyObject!) -> NSDictionary {
-        var titles: Array<String> = []
+        var slides: Array<Slide> = []
         
         var xml:NSData = responseObject as NSData
         var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
         
-        var nodes: Array = doc.nodesForXPath("/Tag/Slideshow/Title", error:nil)
+        var nodes: Array = doc.nodesForXPath("/Tag/Slideshow", error:nil)
         for node: DDXMLNode! in nodes {
-            titles += node.stringValue()
+            var slide: Slide = Slide(xmlNode: node)
+            slides += slide
         }
         
-        let result :NSDictionary = ["slide_titles" : titles]
+        let result :NSDictionary = ["slides" : slides]
         
         return result
     }

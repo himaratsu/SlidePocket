@@ -30,5 +30,9 @@
     return (time_t) [[NSDate date] timeIntervalSince1970];
 }
 
++ (NSString *)nodeStringWithNode:(DDXMLNode *)node key:(NSString *)key {
+    DDXMLNode *n = [node nodesForXPath:key error:nil][0];
+    return n.stringValue;
+}
 
 @end

@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonHMAC.h>
+#import "DDXML.h"
 
 @interface Util : NSObject
 
 - (NSString *)sha1:(NSString *)text;
 - (time_t)unixtime;
+
++ (NSString *)nodeStringWithNode:(DDXMLNode *)node key:(NSString *)key;
 
 @end

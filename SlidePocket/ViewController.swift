@@ -42,7 +42,16 @@ class ViewController: UIViewController {
             
             return
         }
-        println("result is [\(result)]")
+        
+        var resultDic: NSDictionary = result as NSDictionary
+        var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
+
+        // 確認のための出力
+        for slide:Slide in slides {
+            println("slide is [\(slide.simpleDescription())]")
+            println("----------------")
+        }
+
     }
     
     @IBAction func reloadBtnTouched(sender : AnyObject) {
