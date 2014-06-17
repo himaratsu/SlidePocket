@@ -73,6 +73,7 @@ class SlideShareAPI {
         }
     }
 
+    // Slideshare API =================================================================================
     
     // get_slideshow_by_tag ---------------------------------------------------------------------------
     // get api access
@@ -85,11 +86,11 @@ class SlideShareAPI {
             "limit"       : "10"
         ]
         
-        self.getApiAccessWithPath("get_slideshows_by_tag", params: params, completion: completion, parser:self.parseResponse)
+        self.getApiAccessWithPath("get_slideshows_by_tag", params: params, completion: completion, parser:self.parseSlidesWithTagResponse)
     }
     
     // parse result
-    func parseResponse(responseObject: AnyObject!) -> NSDictionary {
+    func parseSlidesWithTagResponse(responseObject: AnyObject!) -> NSDictionary {
         var slides: Array<Slide> = []
         
         var xml:NSData = responseObject as NSData
@@ -110,5 +111,39 @@ class SlideShareAPI {
         
         return result
     }
+    
 
+    
+    // search slideshow by query ---------------------------------------------------------------------------
+    // get api access
+    func searchSlidesWithQuery(query:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+    {
+        
+        let params :NSMutableDictionary = [
+            "q"                    : query,
+            "items_per_page"       : "20"
+        ]
+        
+        self.getApiAccessWithPath("search_slideshows", params: params, completion: completion, parser:self.parseSearchSlideResponse)
+    }
+    
+    // parse result
+    func parseSearchSlideResponse(responseObject: AnyObject!) -> NSDictionary {
+        var slides: Array<Slide> = []
+        
+        var xml:NSData = responseObject as NSData
+        var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+        
+        var nodes: Array = doc.nodesForXPath("/Slideshows/Slideshow", error:nil)
+        for node: DDXMLNode! in nodes {
+            var slide: Slide = Slide(xmlNode: node)
+            slides += slide
+        }
+        
+        let result :NSDictionary = ["slides" : slides]
+        
+        return result
+    }
+
+    
 }

@@ -23,7 +23,13 @@ class ViewController: UIViewController {
     func reload() -> Void {
         SVProgressHUD.show()
         var api: SlideShareAPI = SlideShareAPI()
-        api.getSlidesWitgTag("swift", self.completion)
+        
+        // tag search
+//        api.getSlidesWitgTag("swift", self.completion)
+        
+        // query search
+        api.searchSlidesWithQuery("swift", self.completion)
+        
     }
     
     // api通信のresponse
