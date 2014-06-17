@@ -25,15 +25,15 @@ class ViewController: UIViewController {
         var api: SlideShareAPI = SlideShareAPI()
         
         // tag search
-//        api.getSlidesWitgTag("swift", self.completion)
+        api.getSlidesWithTag("swift", self.completion)
         
         // user search
-        api.getSlidesWitgUsername("himaratsu", {
-            (response, result, error) -> Void in
-            var resultDic: NSDictionary = result as NSDictionary
-            var user: User = resultDic["user"] as User
-            println(user.simpleDescription())
-        })
+//        api.getSlidesWithUser("himaratsu", {
+//            (response, result, error) -> Void in
+//            var resultDic: NSDictionary = result as NSDictionary
+//            var user: User = resultDic["user"] as User
+//            println(user.simpleDescription())
+//        })
         
         // query search
 //        api.searchSlidesWithQuery("swift", self.completion)

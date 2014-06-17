@@ -77,7 +77,7 @@ class SlideShareAPI {
     
     // get_slideshow_by_tag ---------------------------------------------------------------------------
     // get api access
-    func getSlidesWitgTag(tag:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+    func getSlidesWithTag(tag:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
     {
 
         let params :NSMutableDictionary = [
@@ -115,7 +115,7 @@ class SlideShareAPI {
     
     // get_slideshow_by_user ---------------------------------------------------------------------------
     // get api access
-    func getSlidesWitgUsername(username:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+    func getSlidesWithUser(username:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
     {
         
         let params :NSMutableDictionary = [
