@@ -2,19 +2,19 @@
 //  SlideShareAPI.swift
 //  SlidePocket
 //
-//  Created by 平松　亮介 on 2014/06/13.
-//  Copyright (c) 2014年 rhiramat. All rights reserved.
+//  Created by Ryosuke Hiramatsu on 2014/06/13.
+//  Copyright (c) 2014 rhiramat. All rights reserved.
 //
 
 import Foundation
 
 class SlideShareAPI {
-    // TODO: AppDelegateから渡せるようにする
+    // TODO: receive from AppDelegate
     // API Key
     let kApiKey:String = "u25khrDY"
     let kApiSecret:String = "kJFifre0"
     
-    // unixタイムとハッシュを準備する
+    // ready for unixtime and hash
     func generateUnixtimeAndHash() -> (ts:String, hash:String) {
         var timestamp = Util().unixtime()
         
@@ -24,7 +24,8 @@ class SlideShareAPI {
         return (String(timestamp), hash)
     }
     
-    // APIにアクセスする
+    // Common ----------------------------------------------------------------------------------------
+    // access API (GET)
     func getApiAccessWithPath(path:String,
                             params:NSMutableDictionary,
                             completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!,
@@ -42,15 +43,39 @@ class SlideShareAPI {
         
         println(params)
         
-        // TODO: アクセスするAPIに応じてparserの種類を変更する
         manager.GET(url,
             parameters: params,
             success: self.requestSuccess(completion, parser),
             failure: self.requestFailure(completion))
     }
     
+    // connection success
+    func requestSuccess(completion:(NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void!,
+        parser:(AnyObject!) -> NSDictionary)
+        -> ((AFHTTPRequestOperation!, AnyObject!) -> Void) {
+            return {
+                (operation, responseObject) in
+                
+                // TODO: process that network is success but response is error
+                var result = parser(responseObject)
+                completion(operation.response, result, nil)
+                
+                return
+            }
+    }
     
-    // tagをもとにスライド検索する
+    // connection failed
+    func requestFailure(completion:(NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void!) -> ((AFHTTPRequestOperation!, NSError!) -> Void) {
+        return {
+            (operation, error) in
+            completion(operation.response, nil, error)
+            return
+        }
+    }
+
+    
+    // get_slideshow_by_tag ---------------------------------------------------------------------------
+    // get api access
     func getSlidesWitgTag(tag:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
     {
 
@@ -60,40 +85,18 @@ class SlideShareAPI {
             "limit"       : "10"
         ]
         
-        // TODO: 処理によって渡すparserは変更する
         self.getApiAccessWithPath("get_slideshows_by_tag", params: params, completion: completion, parser:self.parseResponse)
     }
     
-    // 通信成功時の処理
-    func requestSuccess(completion:(NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void!,
-                            parser:(AnyObject!) -> NSDictionary)
-                        -> ((AFHTTPRequestOperation!, AnyObject!) -> Void) {
-        return {
-            (operation, responseObject) in
-            
-            // TODO: 通信成功したけどエラー（tokenエラーとか）に対応する
-            var result = parser(responseObject)
-            completion(operation.response, result, nil)
-
-            return
-        }
-    }
-    
-    // 通信失敗時の処理
-    func requestFailure(completion:(NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void!) -> ((AFHTTPRequestOperation!, NSError!) -> Void) {
-        return {
-            (operation, error) in
-            completion(operation.response, nil, error)
-            return
-        }
-    }
-    
-    // /api/2/get_slideshows_by_tag のレスポンスをparseしてスライドタイトルを取り出す
+    // parse result
     func parseResponse(responseObject: AnyObject!) -> NSDictionary {
         var slides: Array<Slide> = []
         
         var xml:NSData = responseObject as NSData
         var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+        
+        var tagNodes: Array = doc.nodesForXPath("/Tag", error: nil);
+        var tag: Tag = Tag(xmlNode: (tagNodes[0] as DDXMLNode))
         
         var nodes: Array = doc.nodesForXPath("/Tag/Slideshow", error:nil)
         for node: DDXMLNode! in nodes {
@@ -101,6 +104,8 @@ class SlideShareAPI {
             slides += slide
         }
         
+        // FIXME: bug? dictionary cannot init with multiple key-values.
+//        let result :NSDictionary = ["slides" : slides, "tag":"Hello"]
         let result :NSDictionary = ["slides" : slides]
         
         return result
