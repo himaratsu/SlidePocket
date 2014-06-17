@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20DBE096194C0D04001C0703 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DBE095194C0D04001C0703 /* Tag.swift */; };
+		D91BEAE419506FED0047A85B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91BEAE319506FED0047A85B /* User.swift */; };
 		D97870C81949B8C900023D51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97870C71949B8C900023D51 /* AppDelegate.swift */; };
 		D97870CA1949B8C900023D51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97870C91949B8C900023D51 /* ViewController.swift */; };
 		D97870CD1949B8C900023D51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D97870CB1949B8C900023D51 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		20DBE095194C0D04001C0703 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		87D6580387714252AC5629A8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D91BEAE319506FED0047A85B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D97870C21949B8C900023D51 /* SlidePocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlidePocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D97870C61949B8C900023D51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D97870C71949B8C900023D51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +35,7 @@
 		D97870EA1949BD6800023D51 /* SlidePocket-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SlidePocket-Bridging-Header.h"; sourceTree = "<group>"; };
 		D9D207D11949FF300039C154 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		D9D207D21949FF300039C154 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
-		D9D207D51949FF770039C154 /* SlideShareAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShareAPI.swift; sourceTree = "<group>"; };
+		D9D207D51949FF770039C154 /* SlideShareAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShareAPI.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		FB129CC28FEF42EC9B1FC5F7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 				D97870E51949B94100023D51 /* Slide.swift */,
 				20DBE095194C0D04001C0703 /* Tag.swift */,
 				D97870E71949B9A000023D51 /* Language.swift */,
+				D91BEAE319506FED0047A85B /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				D97870E61949B94100023D51 /* Slide.swift in Sources */,
 				D97870E81949B9A000023D51 /* Language.swift in Sources */,
 				20DBE096194C0D04001C0703 /* Tag.swift in Sources */,
+				D91BEAE419506FED0047A85B /* User.swift in Sources */,
 				D97870CA1949B8C900023D51 /* ViewController.swift in Sources */,
 				D9D207D61949FF770039C154 /* SlideShareAPI.swift in Sources */,
 				D97870C81949B8C900023D51 /* AppDelegate.swift in Sources */,

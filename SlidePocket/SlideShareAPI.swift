@@ -112,6 +112,36 @@ class SlideShareAPI {
         return result
     }
     
+    
+    // get_slideshow_by_user ---------------------------------------------------------------------------
+    // get api access
+    func getSlidesWitgUsername(username:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+    {
+        
+        let params :NSMutableDictionary = [
+            "username_for": username,
+            "detailed"    : "1",
+            "limit"       : "10"
+        ]
+        
+        self.getApiAccessWithPath("get_slideshows_by_user", params: params, completion: completion, parser:self.parseSlidesWithUserResponse)
+    }
+    
+    // parse result
+    func parseSlidesWithUserResponse(responseObject: AnyObject!) -> NSDictionary {
+        var slides: Array<Slide> = []
+        
+        var xml:NSData = responseObject as NSData
+        var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+        
+        var userNodes: Array = doc.nodesForXPath("/User", error: nil)
+        var user: User = User(xmlNode: (userNodes[0] as DDXMLNode))
+        
+        let result :NSDictionary = ["user" : user]
+        
+        return result
+    }
+    
 
     
     // search slideshow by query ---------------------------------------------------------------------------

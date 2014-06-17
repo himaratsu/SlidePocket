@@ -27,8 +27,16 @@ class ViewController: UIViewController {
         // tag search
 //        api.getSlidesWitgTag("swift", self.completion)
         
+        // user search
+        api.getSlidesWitgUsername("himaratsu", {
+            (response, result, error) -> Void in
+            var resultDic: NSDictionary = result as NSDictionary
+            var user: User = resultDic["user"] as User
+            println(user.simpleDescription())
+        })
+        
         // query search
-        api.searchSlidesWithQuery("swift", self.completion)
+//        api.searchSlidesWithQuery("swift", self.completion)
         
     }
     
