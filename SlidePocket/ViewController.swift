@@ -25,7 +25,20 @@ class ViewController: UIViewController {
         var api: SlideShareAPI = SlideShareAPI()
         
         // tag search
-        api.getSlidesWithTag("swift", self.completion)
+        api.getSlidesWithTag("swift", {
+            (response, result, error) -> Void in
+            var resultDic: NSDictionary = result as NSDictionary
+            var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
+            var tag: Tag = resultDic["tag"] as Tag
+            
+            // 確認のための出力
+            for slide:Slide in slides {
+                println("slide is [\(slide.simpleDescription())]")
+                println("----------------")
+            }
+            
+            println("tag is \(tag.simpleDescription())")
+        })
         
         // user search
 //        api.getSlidesWithUser("himaratsu", {

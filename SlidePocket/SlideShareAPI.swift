@@ -106,8 +106,7 @@ class SlideShareAPI {
         }
         
         // FIXME: bug? dictionary cannot init with multiple key-values.
-//        let result :NSDictionary = ["slides" : slides, "tag":"Hello"]
-        let result :NSDictionary = ["slides" : slides]
+        let result :NSDictionary = ["slides" : slides, "tag":tag]
         
         return result
     }
