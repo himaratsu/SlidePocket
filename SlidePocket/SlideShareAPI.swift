@@ -75,6 +75,48 @@ class SlideShareAPI {
 
     // Slideshare API =================================================================================
     
+    // get_slideshow ---------------------------------------------------------------------------
+    // get api access
+    func getSlides(#slideshowId:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+    {
+        
+        let params :NSMutableDictionary = [
+            "slideshow_id": slideshowId,
+            "detailed"    : "1"
+        ]
+        
+        self.getApiAccessWithPath("get_slideshow", params: params, completion: completion, parser:self.parseSlidesResponse)
+    }
+    
+    func getSlides(#slideshowUrl:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void
+    {
+        
+        let params :NSMutableDictionary = [
+            "slideshow_url": slideshowUrl,
+            "detailed"     : "1"
+        ]
+        
+        self.getApiAccessWithPath("get_slideshow", params: params, completion: completion, parser:self.parseSlidesResponse)
+    }
+    
+    // parse result
+    func parseSlidesResponse(responseObject: AnyObject!) -> NSDictionary {
+        var slides: Array<Slide> = []
+        
+        var xml:NSData = responseObject as NSData
+        var doc:DDXMLDocument = DDXMLDocument(data: xml, options:0, error:nil)
+        
+        var node: Array = doc.nodesForXPath("/Slideshow", error: nil);
+        var slide:Slide = Slide(xmlNode: (node[0] as DDXMLNode))
+        
+        // FIXME: bug? dictionary cannot init with multiple key-values.
+        let result :NSDictionary = ["slide" : slide]
+        
+        return result
+    }
+
+    
+    
     // get_slideshow_by_tag ---------------------------------------------------------------------------
     // get api access
     func getSlidesWithTag(tag:String, completion:((NSHTTPURLResponse?, NSDictionary?, NSError?) -> Void)!) -> Void

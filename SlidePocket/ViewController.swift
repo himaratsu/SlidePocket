@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  SlidePocket
 //
-//  Created by 平松　亮介 on 2014/06/12.
-//  Copyright (c) 2014年 rhiramat. All rights reserved.
+//  Created by Ryosuke Hiramatsu on 2014/06/12.
+//  Copyright (c) 2014 rhiramat. All rights reserved.
 //
 
 import UIKit
@@ -24,21 +24,29 @@ class ViewController: UIViewController {
         SVProgressHUD.show()
         var api: SlideShareAPI = SlideShareAPI()
         
-        // tag search
-        api.getSlidesWithTag("swift", {
+        // slide by id
+        api.getSlides(slideshowUrl:"http://www.slideshare.net/emilycastor/from-scrappy-to-scale-crafting-earlystage-communities-for-culture-and-growth", completion: {
             (response, result, error) -> Void in
             var resultDic: NSDictionary = result as NSDictionary
-            var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
-            var tag: Tag = resultDic["tag"] as Tag
-            
-            // 確認のための出力
-            for slide:Slide in slides {
-                println("slide is [\(slide.simpleDescription())]")
-                println("----------------")
-            }
-            
-            println("tag is \(tag.simpleDescription())")
+            var slide: Slide = resultDic["slide"] as Slide
+            println(slide.simpleDescription())
         })
+        
+        // tag search
+//        api.getSlidesWithTag("swift", {
+//            (response, result, error) -> Void in
+//            var resultDic: NSDictionary = result as NSDictionary
+//            var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
+//            var tag: Tag = resultDic["tag"] as Tag
+//            
+//            // 確認のための出力
+//            for slide:Slide in slides {
+//                println("slide is [\(slide.simpleDescription())]")
+//                println("----------------")
+//            }
+//            
+//            println("tag is \(tag.simpleDescription())")
+//        })
         
         // user search
 //        api.getSlidesWithUser("himaratsu", {
