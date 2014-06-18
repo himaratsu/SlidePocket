@@ -16,5 +16,6 @@
 - (time_t)unixtime;
 
 + (NSString *)nodeStringWithNode:(DDXMLNode *)node key:(NSString *)key;
++ (NSString *)nodeAttributeWithNode:(DDXMLElement *)node key:(NSString *)key;
 
 @end

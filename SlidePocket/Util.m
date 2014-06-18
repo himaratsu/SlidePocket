@@ -35,4 +35,8 @@
     return n.stringValue;
 }
 
++ (NSString *)nodeAttributeWithNode:(DDXMLElement *)node key:(NSString *)key {
+    return [node attributeForName:key].stringValue;
+}
+
 @end

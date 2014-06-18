@@ -2,8 +2,8 @@
 //  Slide.swift
 //  SlidePocket
 //
-//  Created by 平松　亮介 on 2014/06/12.
-//  Copyright (c) 2014年 rhiramat. All rights reserved.
+//  Created by Ryosuke Hiramatsu on 2014/06/12.
+//  Copyright (c) 2014 rhiramat. All rights reserved.
 //
 
 import Foundation
@@ -33,7 +33,7 @@ class Slide {
     var userId: String?
     var pptLocation: String?
     var strippedTitle: String?
-    var tags :Array<AnyObject>?
+    var tags :Array<Tag>?
     var audio :Int?  // ?
     var numDownloads :Int?
     var numViews: Int?
@@ -56,8 +56,24 @@ class Slide {
         self.userName = Util.nodeStringWithNode(xmlNode, key: "Username")
         self.url = Util.nodeStringWithNode(xmlNode, key: "URL")
         self.thumbnailUrl = "http:" + Util.nodeStringWithNode(xmlNode, key: "ThumbnailURL")
+        
+//        self.thumbnailSize
+        self.userId = Util.nodeStringWithNode(xmlNode, key: "UserID")
+        self.pptLocation = Util.nodeStringWithNode(xmlNode, key: "PPTLocation") // swift-1406-140614231948-phpapp01
+        self.strippedTitle = Util.nodeStringWithNode(xmlNode, key: "StrippedTitle") // swift-35939978
+        
+        var tmpTags: Array<Tag> = []
+        var tags: Array = xmlNode.nodesForXPath("Tags/Tag", error: nil)
+        
+        for tag : AnyObject in tags {
+            var title:String = tag.stringValue
+            var count:Int = (tag as DDXMLElement).attributeForName("Count").stringValue().toInt()!
+            
+            var tag:Tag = Tag(title:title, count:count)
+            tmpTags += tag
+        }
+        self.tags = tmpTags
     }
-    
     
     func simpleDescription() -> String {
         return "id:\(slideId) title:\(title) description:\(description) userName:\(userName) url:\(url) thumbUrl:\(thumbnailUrl)";
