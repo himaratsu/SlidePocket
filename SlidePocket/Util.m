@@ -39,4 +39,14 @@
     return [node attributeForName:key].stringValue;
 }
 
++ (NSString *)escapeString:(NSString *)originStr {
+    NSString *escapedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                 kCFAllocatorDefault,
+                                                                                 (CFStringRef)originStr,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                 kCFStringEncodingUTF8));
+    return escapedString;
+}
+
 @end

@@ -18,4 +18,6 @@
 + (NSString *)nodeStringWithNode:(DDXMLNode *)node key:(NSString *)key;
 + (NSString *)nodeAttributeWithNode:(DDXMLElement *)node key:(NSString *)key;
 
++ (NSString *)escapeString:(NSString *)originStr;
+
 @end

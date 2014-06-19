@@ -54,8 +54,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             dispatch_async(q_main, {
                 cell.thumbImageView.image = image
                 cell.layoutSubviews()
-                })
             })
+        })
+        
+        // request hatena bookmark count
+        cell .getCountHatenaBookmark(slide.url)
         
         return cell
     }
@@ -83,6 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // API demos
     func reload() -> Void {
+        SVProgressHUD.showWithStatus("Loading...")
         var api: SlideShareAPI = SlideShareAPI()
         
         // slide by id
@@ -103,6 +107,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.slides = slides
             
             dispatch_async(dispatch_get_main_queue(), {
+                SVProgressHUD.dismiss()
                 self.tableView.reloadData()
             });
         })
