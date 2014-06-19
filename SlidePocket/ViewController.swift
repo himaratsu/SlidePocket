@@ -8,45 +8,104 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet var tableView: UITableView
+    var slides: Array<Slide> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         
+        tableView.rowHeight = 81
         self.reload()
     }
 
+    // ---------------------------------------------
+    // UITableViewDelegate, UITableViewDataSource
+    // ---------------------------------------------
+    
+    func numberOfSectionsInTableView(tableView: UITableView!) -> Int  {
+        return 1;
+    }
+    
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int  {
+        return slides.count;
+    }
+    
+    
+    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell!  {
+        var cell: SlideshowCell = tableView .dequeueReusableCellWithIdentifier("Cell") as SlideshowCell
+        
+        var slide: Slide = slides[indexPath.row]
+        cell.titleLabel.text = slide.title
+        cell.usernameLabel.text = slide.userName
+        
+        var q_global: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        var q_main: dispatch_queue_t  = dispatch_get_main_queue()
+        
+        cell.thumbImageView.image = nil
+        dispatch_async(q_global, {
+            var imageURL: NSURL = NSURL.URLWithString(slide.thumbnailUrl)
+            var imageData: NSData = NSData(contentsOfURL: imageURL)
+            
+            var image: UIImage = UIImage(data: imageData)
+            
+            // update ui on main thread
+            dispatch_async(q_main, {
+                cell.thumbImageView.image = image
+                cell.layoutSubviews()
+                })
+            })
+        
+        return cell
+    }
+
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        var slide: Slide = slides[indexPath.row]
+        self.performSegueWithIdentifier("showDetail", sender: slide)
+    }
+    
+    
+    // ---------------------------------------------
+    // Storyboard
+    // ---------------------------------------------
+    
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if (segue.identifier == "showDetail") {
+            var vc:WebViewController = segue.destinationViewController as WebViewController
+            vc.slide = sender as? Slide
+        }
+    }
+    
+    
+    
+    // API demos
     func reload() -> Void {
-        SVProgressHUD.show()
         var api: SlideShareAPI = SlideShareAPI()
         
         // slide by id
-        api.getSlides(slideshowUrl:"http://www.slideshare.net/emilycastor/from-scrappy-to-scale-crafting-earlystage-communities-for-culture-and-growth", completion: {
-            (response, result, error) -> Void in
-            var resultDic: NSDictionary = result as NSDictionary
-            var slide: Slide = resultDic["slide"] as Slide
-            println(slide.simpleDescription())
-        })
-        
-        // tag search
-//        api.getSlidesWithTag("swift", {
+//        api.getSlides(slideshowUrl:"http://www.slideshare.net/emilycastor/from-scrappy-to-scale-crafting-earlystage-communities-for-culture-and-growth", completion: {
 //            (response, result, error) -> Void in
 //            var resultDic: NSDictionary = result as NSDictionary
-//            var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
-//            var tag: Tag = resultDic["tag"] as Tag
-//            
-//            // 確認のための出力
-//            for slide:Slide in slides {
-//                println("slide is [\(slide.simpleDescription())]")
-//                println("----------------")
-//            }
-//            
-//            println("tag is \(tag.simpleDescription())")
+//            var slide: Slide = resultDic["slide"] as Slide
+//            println(slide.simpleDescription())
 //        })
+        
+        // tag search
+        api.getSlidesWithTag("swift", {
+            (response, result, error) -> Void in
+            var resultDic: NSDictionary = result as NSDictionary
+            var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
+            var tag: Tag = resultDic["tag"] as Tag
+            
+            self.slides = slides
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            });
+        })
         
         // user search
 //        api.getSlidesWithUser("himaratsu", {
@@ -59,38 +118,6 @@ class ViewController: UIViewController {
         // query search
 //        api.searchSlidesWithQuery("swift", self.completion)
         
-    }
-    
-    // api通信のresponse
-    func completion(response: NSHTTPURLResponse? ,result: AnyObject?, error: NSError?) -> Void {
-        println("completion ==============================================================================")
-        
-        println("requestPath is [\(response!.URL.path)]")
-        
-        // エラーハンドリング
-        if let e = error {
-            var alert:UIAlertView = UIAlertView()
-            alert.title = "エラー"
-            alert.message = e.localizedDescription
-            alert.addButtonWithTitle("OK")
-            alert.show()
-            
-            return
-        }
-        
-        var resultDic: NSDictionary = result as NSDictionary
-        var slides: Array<Slide> = resultDic["slides"] as Array<Slide>
-
-        // 確認のための出力
-        for slide:Slide in slides {
-            println("slide is [\(slide.simpleDescription())]")
-            println("----------------")
-        }
-
-    }
-    
-    @IBAction func reloadBtnTouched(sender : AnyObject) {
-        reload()
     }
 }
 
